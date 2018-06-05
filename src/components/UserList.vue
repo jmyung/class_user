@@ -2,7 +2,7 @@
 <template>
     <div class="container"   >      
              
-    <div class="col-lg-8 col-md-10 mx-auto" v-for="users in resultlist" :key = "users" v-if="resultlist.length ===1">      
+    <div class="col-lg-8 col-md-10 mx-auto" v-for="users in resultlist" :key = "users.id" v-if="resultlist.length ===1">
         
          <div class="form-control" style = "border : none;" v-if="users.p!=''||users.a!=''||users.v!=''">
                 <label>[{{users.id}} / {{users.name}}] 님의 신청 현황은 다음과 같습니다. </label>

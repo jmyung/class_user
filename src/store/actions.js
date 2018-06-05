@@ -11,37 +11,27 @@ export default {
                 store.commit(Constant.FETCH_USERS, { userlist: response.data });
             })
     },
-    [Constant.FETCH_ONE]: (store, payload) => {
+  
+   [Constant.FETCH_ONE]: (store, payload) => {
         console.log(payload.id);
-        // userAPI.fetchOneUser(payload.id)
-        //     .then((response) => {
-        //         store.commit(Constant.FETCH_ONE, { userlist: response.data });
-        //     })
-        //     .catch(
-        //         (e) => {
-        //             console.log(e);
-        //         }
-        //     )
-
-
-        var searchKey = payload.id.trim();
-        var list = store.state.userlist.users;
-        // console.log(list);
+        var id = payload.id;
         var resultList = [];
-        list.filter(function(item, index) {
-            if (item.id === Number(searchKey)) {
-                console.log(item);
-                resultList.push(item);
-            }
-        })
-        if (resultList.length < 1) {
-            resultList.push({ id: searchKey, name: '', p: '', a: '', v: '' });
-            console.log(resultList);
-        }
-        store.commit(Constant.FETCH_ONE, { resultlist: resultList })
+        userAPI.fetchOneUser(id)
+            .then((response) => {
+                resultList.push(response.data);
+                store.commit(Constant.FETCH_ONE, { resultlist: resultList });
+            })
+            .catch(
+                (e) => {
 
-
+                    resultList.push({ id: id, name: '', p: '', a: '', v: '' });
+                    store.commit(Constant.FETCH_ONE, { resultlist: resultList })
+                    console.log(e);
+                }
+            )
     },
+
+  
     [Constant.REFRESH]: (store) => {
         store.commit(Constant.REFRESH);
 
